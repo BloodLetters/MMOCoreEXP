@@ -1,0 +1,4 @@
+name: MMOCoreEXP
+version: '${project.version}'
+main: me.ashesh.MMOCoreEXP
+api-version: '1.20'
