@@ -1,10 +1,15 @@
 package me.ashesh;
 
 import me.ashesh.Event.MMDeath;
+import me.ashesh.Module.Eco;
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class MMOCoreEXP extends JavaPlugin {
+
+    private static MMOCoreEXP instance;
+    private static Eco econ = null;
 
     @Override
     public void onEnable() {
@@ -17,12 +22,38 @@ public final class MMOCoreEXP extends JavaPlugin {
         }
 
         if (this.getServer().getPluginManager().getPlugin("Vault") == null) {
-            Bukkit.getLogger().severe("[MMOCoreEXP] Disabling MMOCoreExp Money drop module");
+            Bukkit.getLogger().severe("[MMOCoreEXP] Vault not found!. Disabling MMOCoreExp Money drop module");
         }
+
+        Bukkit.getLogger().info("[MMOCoreEXP] Plugin success to enabled!");
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+    }
+
+    private boolean setupEconomy() {
+        if (getServer().getPluginManager().getPlugin("Vault") == null) {
+            return false;
+        }
+        RegisteredServiceProvider<Eco> rsp = getServer().getServicesManager().getRegistration(Eco.class);
+        if (rsp == null) {
+            return false;
+        }
+        econ = rsp.getProvider();
+        return true;
+    }
+
+    public MMOCoreEXP() {
+        instance = this;
+    }
+
+    public static Eco getEconomy() {
+        return econ;
+    }
+
+    public static MMOCoreEXP getInstance() {
+        return instance;
     }
 }

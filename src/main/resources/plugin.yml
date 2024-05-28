@@ -2,3 +2,5 @@ name: MMOCoreEXP
 version: '${project.version}'
 main: me.ashesh.MMOCoreEXP
 api-version: '1.20'
+depend: [MythicMobs, MMOCore, MythicLib]
+softdepend: [Vault, PlaceholderAPI]
