@@ -1,5 +1,6 @@
 package me.ashesh;
 
+import me.ashesh.Command.command;
 import me.ashesh.Command.completer;
 import me.ashesh.Event.MMDeath;
 import me.ashesh.Module.Eco;
@@ -17,6 +18,7 @@ public final class MMOCoreEXP extends JavaPlugin {
         Bukkit.getLogger().info("[MMOCoreEXP] Trying to enable plugin");
 
         this.getServer().getPluginManager().registerEvents(new MMDeath(), this);
+        this.getCommand("MMOCoreEXP").setExecutor(new command());
         this.getCommand("MMOCoreEXP").setTabCompleter(new completer());
 
         if (this.getServer().getPluginManager().getPlugin("MMOCore") == null || this.getServer().getPluginManager().getPlugin("MythicLib") == null) {
