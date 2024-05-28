@@ -24,6 +24,9 @@ public class command implements CommandExecutor {
                 help(sender);
             } else {
                 switch (args[0].toLowerCase()) {
+                    case "help":
+                        help(sender);
+                        break;
                     case "version":
                         sender.sendMessage("&7[&eMMOCoreEXP&7] &aVersion " + MMOCoreEXP.getInstance().getDescription().getVersion());
                         break;

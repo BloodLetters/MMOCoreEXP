@@ -4,3 +4,8 @@ main: me.ashesh.MMOCoreEXP
 api-version: '1.20'
 depend: [MythicMobs, MMOCore, MythicLib]
 softdepend: [Vault, PlaceholderAPI]
+commands:
+  MMOCoreEXP:
+    description: default command
+    usage: /<command>
+    permission: mmocoreexp.help
