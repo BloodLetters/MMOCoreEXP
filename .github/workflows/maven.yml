@@ -33,4 +33,4 @@ jobs:
       with:
         name: "[DEV]-MMOCoreEXP"
         path: |
-          ./target/MMOCoreEXP.jar
+          ./target/MMOCoreEXP-1.0.jar
