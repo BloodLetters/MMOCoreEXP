@@ -51,7 +51,7 @@ public class API {
         money.put("Min", 1);
         money.put("Max", 2);
 
-        main.getConfig().set("mob-list." + name + ".Exp", exp);
+        main.getConfig().set("mob-list." + name + ".EXP", exp);
         main.getConfig().set("mob-list." + name + ".Money", money);
 
         main.saveConfig();
