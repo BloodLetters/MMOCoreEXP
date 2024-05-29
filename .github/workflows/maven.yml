@@ -34,3 +34,12 @@ jobs:
         name: "[DEV]-MMOCoreEXP"
         path: |
           ./target/MMOCoreEXP-1.0.jar
+    - uses: actions/checkout@v2
+    - name: Send discord dev build
+      uses: tsickert/discord-webhook@v5.3.0
+      with:
+        webhook-url: ${{ secrets.WEBHOOK_URL }}
+        embed-description: |
+            New DEV Build Release
+        filename: |
+          ./target/MMOCoreEXP-1.0.jar
