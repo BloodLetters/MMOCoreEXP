@@ -44,6 +44,8 @@ jobs:
     #     filename: |
     #       ./target/MMOCoreEXP-1.0.jar
     - name: "Test list"
-      run: "ls"
+      run: |
+        cd target;
+        ls;
         
        
