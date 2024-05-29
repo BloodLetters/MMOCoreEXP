@@ -28,11 +28,16 @@ public class Eco {
                 .replace("{p_lvl}", String.valueOf(p_lvl))
                 .replace("{m_lvl}", String.valueOf(mob.getLevel()));
 
+        API.debugConsole("Money Format: " + replaced);
         PlaceholderAPI.setPlaceholders(p, replaced);
 
         // calc
         double res = calculator.evaluateExpression(replaced);
-        money.depositPlayer(p, res);
-        API.giveMoney(p, (float) res, location);
+        API.debugConsole("Money: " + res);
+
+        if ((int) res != 0) {
+            money.depositPlayer(p, res);
+            API.giveMoney(p, (float) res, location);
+        }
     }
 }
