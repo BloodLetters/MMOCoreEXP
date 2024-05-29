@@ -1,3 +1,6 @@
+# Enable debugging
+debug: false
+
 # Modular options
 # true = enable module
 # false = false module
@@ -9,6 +12,8 @@ module:
 # Internal Placeholder
 # {min} -> return based value min
 # {max} -> return based value max
+# {p_lvl} -> return player level
+# {m_lvl} -> return mob level
 # PlaceholderAPi Support too
 
 # Calculate
@@ -16,12 +21,11 @@ module:
 # Subtraction: "1 - 1" return 0
 # Multiplication: "1 * 2" return 2
 # Division: "5 / 2" return 2.5
-# Percent: "5 % 10" return 5
 # Range: "(1 + 2) = 10" return random between number 3 and 10
 
 formula:
-  money: "(%p_lvl% + {min}) = {max}"
-  exp: "({min} * %p_lvl%) = {max}"
+  money: "({p_lvl} + {min}) = {max}"
+  exp: "({min} * {p_lvl}) = {max}"
 
 # Make sure you insert correct mob type
 mob-list:

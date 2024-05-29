@@ -10,9 +10,9 @@ public class command implements CommandExecutor {
 
     public void help(CommandSender sender) {
         sender.sendMessage(" ");
-        sender.sendMessage("&7Avaible Command &f/MMOCoreEXP");
-        sender.sendMessage("  &fReload &7- &fReload Plugin");
-        sender.sendMessage("  &fVersion &7- &fPlugin Version");
+        sender.sendMessage(API.chatColorized("&7Avaible Command &f/MMOCoreEXP"));
+        sender.sendMessage( API.chatColorized("  &fReload &7- &fReload Plugin"));
+        sender.sendMessage(API.chatColorized("  &fVersion &7- &fPlugin Version"));
         sender.sendMessage(" ");
 
     }
@@ -28,7 +28,7 @@ public class command implements CommandExecutor {
                         help(sender);
                         break;
                     case "version":
-                        sender.sendMessage("&7[&eMMOCoreEXP&7] &aVersion " + MMOCoreEXP.getInstance().getDescription().getVersion());
+                        sender.sendMessage(API.chatColorized("&7[&eMMOCoreEXP&7] &aVersion " + MMOCoreEXP.getInstance().getDescription().getVersion()));
                         break;
                     case "reload":
                         if (sender.hasPermission("MMOCoreEXP.admin")) {

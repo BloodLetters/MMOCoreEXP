@@ -3,7 +3,7 @@ package me.ashesh;
 import me.ashesh.Command.command;
 import me.ashesh.Command.completer;
 import me.ashesh.Event.MMDeath;
-import me.ashesh.Module.Eco;
+import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -11,13 +11,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class MMOCoreEXP extends JavaPlugin {
 
     private static MMOCoreEXP instance;
-    private static Eco econ = null;
+    private static Economy econ = null;
 
     @Override
     public void onEnable() {
         Bukkit.getLogger().info("[MMOCoreEXP] Trying to enable plugin");
 
-        this.getServer().getPluginManager().registerEvents(new MMDeath(), this);
+        saveDefaultConfig();
         this.getCommand("MMOCoreEXP").setExecutor(new command());
         this.getCommand("MMOCoreEXP").setTabCompleter(new completer());
 
@@ -26,10 +26,11 @@ public final class MMOCoreEXP extends JavaPlugin {
             getServer().getPluginManager().disablePlugin(this);
         }
 
-        if (this.getServer().getPluginManager().getPlugin("Vault") == null) {
-            Bukkit.getLogger().severe("[MMOCoreEXP] Vault not found!. Disabling MMOCoreExp Money drop module");
+        if (!this.setupEconomy()) {
+            this.getLogger().severe("[MMOCoreEXP] Vault not found!. Disabling MMOCoreExp Money drop module");
         }
 
+        this.getServer().getPluginManager().registerEvents(new MMDeath(), this);
         Bukkit.getLogger().info("[MMOCoreEXP] Plugin success to enabled!");
     }
 
@@ -42,19 +43,19 @@ public final class MMOCoreEXP extends JavaPlugin {
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
             return false;
         }
-        RegisteredServiceProvider<Eco> rsp = getServer().getServicesManager().getRegistration(Eco.class);
+        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
         if (rsp == null) {
             return false;
         }
         econ = rsp.getProvider();
-        return true;
+        return econ != null;
     }
 
     public MMOCoreEXP() {
         instance = this;
     }
 
-    public static Eco getEconomy() {
+    public static Economy getEconomy() {
         return econ;
     }
 

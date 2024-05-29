@@ -3,6 +3,7 @@ package me.ashesh;
 import net.Indyuce.mmocore.api.player.PlayerData;
 import net.Indyuce.mmocore.api.util.MMOCoreUtils;
 import net.Indyuce.mmocore.experience.EXPSource;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -11,6 +12,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class API {
+
+    public static void debugConsole(String e) {
+        if (MMOCoreEXP.getInstance().getConfig().getBoolean("debug")) {
+            Bukkit.getLogger().info("[MMOCoreEXP-Debug] " + e);
+        }
+    }
 
     public static String chatColorized(String s) {
         return ChatColor.translateAlternateColorCodes('&', s);

@@ -2,96 +2,96 @@ package me.ashesh.Utils;
 import java.util.*;
 
 public class calculator {
+//    public static void main(String[] args) {
+//        String expression = "((1 + 1) * (1 * 2)) + 3";
+//        String expressionWithRandom = "((((1 + 1) * (1 * 2)) + 3) = 100) / 2";
+//        try {
+//            double result = evaluateExpression(expression);
+//            System.out.println("Hasil: " + result);
+//
+//            double resultWithRandom = evaluateExpression(expressionWithRandom);
+//            System.out.println("Hasil dengan random: " + resultWithRandom);
+//        } catch (Exception e) {
+//            System.out.println("Terjadi kesalahan: " + e.getMessage());
+//        }
+//    }
 
-    public static double evaluate(String expression) {
-        List<String> postfix = infixToPostfix(expression);
-        return evaluatePostfix(postfix);
-    }
+    public static double evaluateExpression(String expression) throws Exception {
+        Stack<Double> values = new Stack<>();
+        Stack<Character> operators = new Stack<>();
 
-    private static List<String> infixToPostfix(String expression) {
-        List<String> result = new ArrayList<>();
-        Stack<String> stack = new Stack<>();
-        StringTokenizer tokenizer = new StringTokenizer(expression, "()+-*/%", true);
+        for (int i = 0; i < expression.length(); i++) {
+            char ch = expression.charAt(i);
 
-        while (tokenizer.hasMoreTokens()) {
-            String token = tokenizer.nextToken().trim();
-            if (token.isEmpty()) {
+            if (Character.isWhitespace(ch)) {
                 continue;
             }
-            if (isNumber(token)) {
-                result.add(token);
-            } else if (token.equals("(")) {
-                stack.push(token);
-            } else if (token.equals(")")) {
-                while (!stack.isEmpty() && !stack.peek().equals("(")) {
-                    result.add(stack.pop());
+
+            if (Character.isDigit(ch)) {
+                StringBuilder sb = new StringBuilder();
+                while (i < expression.length() && (Character.isDigit(expression.charAt(i)) || expression.charAt(i) == '.')) {
+                    sb.append(expression.charAt(i++));
                 }
-                stack.pop();
-            } else if (isOperator(token)) {
-                while (!stack.isEmpty() && precedence(stack.peek()) >= precedence(token)) {
-                    result.add(stack.pop());
+                i--; // adjust for the next iteration
+                values.push(Double.parseDouble(sb.toString()));
+            } else if (ch == '(') {
+                operators.push(ch);
+            } else if (ch == ')') {
+                while (operators.peek() != '(') {
+                    values.push(applyOperation(operators.pop(), values.pop(), values.pop()));
                 }
-                stack.push(token);
+                operators.pop(); // pop the '('
+            } else if (ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '=') {
+                while (!operators.isEmpty() && hasPrecedence(ch, operators.peek())) {
+                    values.push(applyOperation(operators.pop(), values.pop(), values.pop()));
+                }
+                operators.push(ch);
             }
         }
 
-        while (!stack.isEmpty()) {
-            result.add(stack.pop());
+        while (!operators.isEmpty()) {
+            values.push(applyOperation(operators.pop(), values.pop(), values.pop()));
         }
 
-        return result;
+        return values.pop();
     }
 
-    private static double evaluatePostfix(List<String> postfix) {
-        Stack<Double> stack = new Stack<>();
-
-        for (String token : postfix) {
-            if (isNumber(token)) {
-                stack.push(Double.parseDouble(token));
-            } else if (isOperator(token)) {
-                if (token.equals("%")) {
-                    double a = stack.pop();
-                    stack.push(a / 100);
-                } else {
-                    double b = stack.pop();
-                    double a = stack.pop();
-                    switch (token) {
-                        case "+": stack.push(a + b); break;
-                        case "-": stack.push(a - b); break;
-                        case "*": stack.push(a * b); break;
-                        case "/": stack.push(a / b); break;
-                    }
-                }
-            }
-        }
-
-        return stack.pop();
-    }
-
-    private static boolean isNumber(String token) {
-        try {
-            Double.parseDouble(token);
-            return true;
-        } catch (NumberFormatException e) {
+    public static boolean hasPrecedence(char op1, char op2) {
+        if (op2 == '(' || op2 == ')') {
             return false;
         }
-    }
-
-    private static boolean isOperator(String token) {
-        return token.equals("+") || token.equals("-") || token.equals("*") || token.equals("/") || token.equals("%");
-    }
-
-    private static int precedence(String operator) {
-        switch (operator) {
-            case "+": case "-": return 1;
-            case "*": case "/": return 2;
-            case "%": return 3;
-            default: return 0;
+        if (op1 == '=' && (op2 == '+' || op2 == '-' || op2 == '*' || op2 == '/')) {
+            return false;
+        }
+        if ((op1 == '*' || op1 == '/') && (op2 == '+' || op2 == '-')) {
+            return false;
+        } else {
+            return true;
         }
     }
 
-//    public static void main(String[] args) {
-//        String expression = "1 + (2 / 3) * 5 %";
-//        System.out.println("Result: " + evaluate(expression));
-//    }
+    public static double applyOperation(char op, double b, double a) throws Exception {
+        switch (op) {
+            case '+':
+                return a + b;
+            case '-':
+                return a - b;
+            case '*':
+                return a * b;
+            case '/':
+                if (b == 0) {
+                    throw new Exception("Divide with zero!");
+                }
+                return a / b;
+            case '=':
+                return getRandomInRange(a, b);
+            default:
+                throw new Exception("Operator not valid");
+        }
+    }
+
+    public static double getRandomInRange(double min, double max) {
+        Random rand = new Random();
+        return min + (max - min) * rand.nextDouble();
+    }
 }
