@@ -41,5 +41,7 @@ jobs:
         embed-description: |
             New DEV Build Release
         filename: "./target/MMOCoreEXP-1.0.jar"
+    - name: check
+      run: echo ${{ secrets.WEBHOOK_URL }}
         
        
