@@ -29,13 +29,13 @@ public class API {
 
     public static void giveMoney(Player p, float money, Location location) {
         float rest = (float)Math.round(money * 10.0F) / 10.0F;
-        spawnHolo(location.add(0.0D, 0.8D, 0.0D), chatColorized("&e+" + rest + " Gold"));
+        spawnHolo(location.add(0.0D, 0.7D, 0.0D), chatColorized("&e+" + rest + " Gold"));
     }
 
     public static void giveEXP(Player p, float xp, Location location) {
         float rest = (float)Math.round(xp * 10.0F) / 10.0F;
         PlayerData.get(p).giveExperience(rest, EXPSource.OTHER);
-        spawnHolo(location.add(0.0D, 1.0D, 0.0D), chatColorized("&e+" + rest + " EXP"));
+        spawnHolo(location.add(0.0D, 0.9D, 0.0D), chatColorized("&e+" + rest + " EXP"));
     }
 
     public static void addMobConf(String name) {

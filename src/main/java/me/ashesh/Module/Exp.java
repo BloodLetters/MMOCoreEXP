@@ -26,11 +26,13 @@ public class Exp {
 
         String replaced = formula.replace("{min}", String.valueOf(getMin))
                 .replace("{max}", String.valueOf(getMax))
-                        .replace("{p_lvl}", String.valueOf(p_lvl))
-                        .replace("{m_lvl}", String.valueOf(mob.getLevel()));
+                .replace("{p_lvl}", String.valueOf(p_lvl))
+                .replace("{m_lvl}", String.valueOf(mob.getLevel()));
 
         API.debugConsole("EXP Format: " + replaced);
         PlaceholderAPI.setPlaceholders(p, replaced);
+
+        API.debugConsole("Mob Level: " + mob.getLevel());
 
         // calc
         double res = calculator.evaluateExpression(replaced);

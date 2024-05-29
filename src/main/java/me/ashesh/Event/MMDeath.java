@@ -54,7 +54,7 @@ public class MMDeath implements Listener {
                         }
                     }
 
-                } else if (ins.getConfig().getBoolean("auto-add-mob-to-config")) {
+                } else if (ins.getConfig().getBoolean("module.auto-add-mob-to-config")) {
                     API.debugConsole("MOB not in list adding mob to list");
                     Bukkit.getLogger().info("[MMOCoreExp] Found " + mobID + " but not registered in config. registered to config!");
                     API.addMobConf(mobID);

@@ -20,7 +20,6 @@ public class Eco {
         int getMax = ins.getConfig().getInt("mob-list." + mobID + ".Money.Max");
 
         int p_lvl = PlayerData.get(p).getLevel();
-        double p_exp = PlayerData.get(p).getExperience();
 
         // formula
         String formula = ins.getConfig().getString("formula.money");
