@@ -34,8 +34,9 @@ public class API {
 
     public static void giveEXP(Player p, float xp, Location location) {
         float rest = (float)Math.round(xp * 10.0F) / 10.0F;
-        PlayerData.get(p).giveExperience(rest, EXPSource.OTHER);
-        spawnHolo(location.add(0.0D, 0.9D, 0.0D), chatColorized("&e+" + rest + " EXP"));
+        // PlayerData.get(p).giveExperience(rest, EXPSource.OTHER);
+        PlayerData.get(p).giveExperience(rest, EXPSource.OTHER, location.add(0.0D, 0.9D, 0.0D), true);
+        //spawnHolo(location.add(0.0D, 0.9D, 0.0D), chatColorized("&e+" + rest + " EXP"));
     }
 
     public static void addMobConf(String name) {
